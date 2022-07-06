@@ -1,6 +1,8 @@
 import { Component } from 'react';
 
-import logo from './logo.svg';
+import CardList from './components/card-list/card-list-component';
+import SearchBox from './components/search-box/search-box';
+
 import './App.css';
 
 class App extends Component {
@@ -44,8 +46,11 @@ class App extends Component {
   };
 
   render() {
-    const filteredMonsters = this.state.monsters.filter((monster) => {
-      return monster.name.toLowerCase().includes(this.state.searchField);
+    const { monsters, searchField } = this.state;
+    const { onSearchChange } = this;
+    //destructuring so we don't have to use this keyword so often
+    const filteredMonsters = monsters.filter((monster) => {
+      return monster.name.toLowerCase().includes(searchField);
       //if the monsters name includes the search string, then return it
       //otherwise it will not be returend
       //filter give us back a new array
@@ -53,14 +58,8 @@ class App extends Component {
 
     return (
       <div className="App">
-        <input
-          className="search-box"
-          type="search"
-          onChange={this.onSearchChange}
-        />
-        {filteredMonsters.map((monster) => {
-          return <h1 key={monster.name}>{monster.name}</h1>;
-        })}
+        <SearchBox onSearchChange={onSearchChange} />
+        <CardList monsters={filteredMonsters} />;
       </div>
     );
   }
