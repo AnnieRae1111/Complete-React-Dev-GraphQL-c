@@ -1,5 +1,9 @@
 import { Component } from 'react'
 
+import Card from './card'
+
+import '../../css/cardList.css'
+
 class CardList extends Component{
 
 
@@ -7,10 +11,8 @@ class CardList extends Component{
 
     const { monsters } = this.props
     return(
-      <div>
-        {monsters.map((monster)=>{
-        return <h1 key={monster.id}>{monster.name}</h1>
-        })}
+      <div className='card-list'>
+     <Card monsters={monsters}/>
       </div>
     )
   }
